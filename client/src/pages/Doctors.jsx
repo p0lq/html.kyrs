@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { getDoctors } from '../services/api';
+import axios from 'axios';
 
 export default function Doctors() {
   const [doctors, setDoctors] = useState([]);
@@ -8,9 +8,15 @@ export default function Doctors() {
   const [error, setError] = useState('');
 
   useEffect(() => {
-    getDoctors()
-      .then(res => setDoctors(res.data))
-      .catch(() => setError('Не удалось загрузить список врачей'))
+    axios.get('/api/doctors')
+      .then(res => {
+        console.log('doctors:', res.data);
+        setDoctors(res.data);
+      })
+      .catch(err => {
+        console.error(err);
+        setError('Не удалось загрузить список врачей');
+      })
       .finally(() => setLoading(false));
   }, []);
 
