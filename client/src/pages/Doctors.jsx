@@ -8,7 +8,7 @@ export default function Doctors() {
   const [error, setError] = useState('');
 
   useEffect(() => {
-    axios.get('/api/doctors')
+    axios.get('https://html-kyrs.onrender.com/api/doctors')
       .then(res => {
         console.log('doctors:', res.data);
         setDoctors(res.data);
